@@ -310,6 +310,80 @@ chmod +x ~/.local/bin/clipboard-daemon
 chmod +x ~/.local/bin/clipboard-rofi
 ```
 
+## 快捷键列表
+
+> `Mod` = `Mod4`，即键盘上的 Windows / Super 键。
+
+### 程序
+
+| 快捷键 | 功能 |
+|---|---|
+| `Mod + Enter` | 打开 Alacritty 终端 |
+| `Mod + D` | 打开 Rofi 程序启动器 |
+| `Mod + V` | 打开剪切板历史 |
+
+### 窗口管理
+
+| 快捷键 | 功能 |
+|---|---|
+| `Mod + Shift + Q` | 关闭当前窗口 |
+| `Mod + F` | 全屏切换 |
+| `Mod + Shift + Space` | 浮动窗口切换 |
+
+### 窗口焦点
+
+| 快捷键 | 功能 |
+|---|---|
+| `Mod + H` | 焦点向左 |
+| `Mod + J` | 焦点向下 |
+| `Mod + K` | 焦点向上 |
+| `Mod + L` | 焦点向右 |
+
+### 移动窗口
+
+| 快捷键 | 功能 |
+|---|---|
+| `Mod + Shift + H` | 向左移动当前窗口 |
+| `Mod + Shift + J` | 向下移动当前窗口 |
+| `Mod + Shift + K` | 向上移动当前窗口 |
+| `Mod + Shift + L` | 向右移动当前窗口 |
+
+### 窗口分割
+
+| 快捷键 | 功能 |
+|---|---|
+| `Mod + B` | 水平分割 |
+| `Mod + Shift + V` | 垂直分割 |
+
+### 工作区
+
+#### 切换工作区
+
+| 快捷键 | 功能 |
+|---|---|
+| `Mod + 1` | 切换到工作区 1 |
+| `Mod + 2` | 切换到工作区 2 |
+| `Mod + 3` | 切换到工作区 3 |
+| `Mod + 4` | 切换到工作区 4 |
+| `Mod + 5` | 切换到工作区 5 |
+
+#### 移动窗口到工作区
+
+| 快捷键 | 功能 |
+|---|---|
+| `Mod + Shift + 1` | 将当前窗口移动到工作区 1 |
+| `Mod + Shift + 2` | 将当前窗口移动到工作区 2 |
+| `Mod + Shift + 3` | 将当前窗口移动到工作区 3 |
+| `Mod + Shift + 4` | 将当前窗口移动到工作区 4 |
+| `Mod + Shift + 5` | 将当前窗口移动到工作区 5 |
+
+### i3 管理
+
+| 快捷键 | 功能 |
+|---|---|
+| `Mod + Shift + R` | 重载配置 |
+| `Mod + Shift + E` | 退出 i3 |
+
 ## nvidia-legacy-390xx-driver
 ```bash
 sudo wget -O /usr/local/bin/bi-nvidia-legacy-390xx-driver https://raw.githubusercontent.com/woaiyuzi/debian13-i3/refs/heads/main/bi-nvidia-legacy-390xx-driver.sh
