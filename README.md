@@ -300,32 +300,32 @@ dynamic_padding = true
 history = 10000
 
 [colors.primary]
-background = "#1d1f21"
-foreground = "#c5c8c6"
+foreground = "#cdd6f4"
+background = "#1e1e2e"
 
 [colors.cursor]
-text = "#1d1f21"
-cursor = "#c5c8c6"
+text = "#1e1e2e"
+cursor = "#f5e0dc"
 
 [colors.normal]
-black = "#1d1f21"
-red = "#cc6666"
-green = "#b5bd68"
-yellow = "#f0c674"
-blue = "#81a2be"
-magenta = "#b294bb"
-cyan = "#8abeb7"
-white = "#c5c8c6"
+black   = "#45475a"
+red     = "#f38ba8"
+green   = "#a6e3a1"
+yellow  = "#f9e2af"
+blue    = "#89b4fa"
+magenta = "#f5c2e7"
+cyan    = "#94e2d5"
+white   = "#a6adc8"
 
 [colors.bright]
-black = "#969896"
-red = "#de935f"
-green = "#8c9440"
-yellow = "#f0c674"
-blue = "#81a2be"
-magenta = "#85678f"
-cyan = "#5e8d87"
-white = "#ffffff"
+black   = "#585b70"
+red     = "#f37799"
+green   = "#89d88b"
+yellow  = "#ebd391"
+blue    = "#74a8fc"
+magenta = "#f2aede"
+cyan    = "#6bd7ca"
+white   = "#bac2de"
 
 [cursor]
 style = "Block"
