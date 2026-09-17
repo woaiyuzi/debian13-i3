@@ -1,0 +1,155 @@
+#!/usr/bin/env python3
+
+import os
+import subprocess
+import sys
+from pathlib import Path
+
+HISTORY_DIR = Path.home() / ".cache" / "i3-clipboard"
+
+
+def display_text(data):
+    """
+    把多行内容转换成适合 rofi 显示的一行。
+    实际文件内容不会被修改。
+    """
+
+    text = data.decode("utf-8", errors="replace")
+
+    # 控制字符简单处理
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+
+    # rofi 中用 ↵ 表示原来的换行
+    text = text.replace("\n", " ↵ ")
+
+    # Tab 也避免破坏 rofi 显示
+    text = text.replace("\t", " ⇥ ")
+
+    return text
+
+
+def main():
+    if not HISTORY_DIR.exists():
+        return
+
+    files = [
+        p for p in HISTORY_DIR.iterdir()
+        if p.is_file() and not p.name.endswith(".tmp")
+    ]
+
+    # 最近复制的在最前面
+    files.sort(key=lambda p: p.stat().st_mtime, reverse=True)
+
+    if not files:
+        return
+
+    entries = []
+
+    for path in files:
+        try:
+            data = path.read_bytes()
+            entries.append(display_text(data))
+        except OSError:
+            entries.append("")
+
+    # 启动 rofi 前记录当前窗口
+    try:
+        active_window = subprocess.check_output(
+            ["xdotool", "getactivewindow"],
+            text=True,
+        ).strip()
+    except subprocess.CalledProcessError:
+        active_window = None
+
+    # -format i：返回被选择项目的索引
+    result = subprocess.run(
+        [
+            "rofi",
+            "-dmenu",
+            "-i",
+            "-format", "i",
+            "-p", "Clipboard",
+            "-no-custom",
+        ],
+        input="\n".join(entries),
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL,
+    )
+
+    if result.returncode != 0:
+        return
+
+    selected = result.stdout.strip()
+
+    if not selected.isdigit():
+        return
+
+    index = int(selected)
+
+    if index < 0 or index >= len(files):
+        return
+
+    selected_file = files[index]
+
+    # 恢复剪贴板
+    try:
+        with selected_file.open("rb") as f:
+            subprocess.run(
+                ["xclip", "-selection", "clipboard", "-in"],
+                stdin=f,
+                check=True,
+                stderr=subprocess.DEVNULL,
+            )
+    except (OSError, subprocess.CalledProcessError):
+        return
+
+    # 返回原来的窗口
+    if active_window:
+        subprocess.run(
+            ["xdotool", "windowactivate", "--sync", active_window],
+            stderr=subprocess.DEVNULL,
+        )
+
+        # 给窗口一点时间重新获得焦点
+        subprocess.run(
+            ["sleep", "0.05"],
+        )
+
+        # 自动 Ctrl+V
+        # 获取原窗口的 WM_CLASS
+        try:
+            wm_class = subprocess.check_output(
+                ["xprop", "-id", active_window, "WM_CLASS"],
+                text=True,
+                stderr=subprocess.DEVNULL,
+            ).lower()
+        except subprocess.CalledProcessError:
+            wm_class = ""
+
+        # 常见终端
+        terminal_names = [
+            "alacritty"
+        ]
+
+        is_terminal = any(name in wm_class for name in terminal_names)
+
+        if is_terminal:
+            paste_key = "ctrl+shift+v"
+        else:
+            paste_key = "ctrl+v"
+
+        subprocess.run(
+            ["xdotool", "key", "--clearmodifiers", paste_key],
+            stderr=subprocess.DEVNULL,
+        )
+
+    # 被选择的历史移动到最前面
+    try:
+        os.utime(selected_file, None)
+    except OSError:
+        pass
+
+
+if __name__ == "__main__":
+    main()
