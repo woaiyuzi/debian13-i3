@@ -27,7 +27,8 @@ sudo apt install -y \
     xclip \
     xdotool \
     xdg-utils \
-    thunar
+    thunar \
+    fish
 ```
 
 ## 配置输入法
@@ -35,7 +36,7 @@ sudo apt install -y \
 ```bash
 im-config -n fcitx5
 
-mkdir -p ~/.config/environment.d ~/.config/fcitx5
+mkdir -p ~/.config/fcitx5
 
 cat > ~/.config/fcitx5/profile <<'EOF'
 [Groups/0]
@@ -61,6 +62,8 @@ EOF
 先创建基础配置
 
 ```bash
+mkdir -p ~/.config/i3
+
 cat > ~/.config/i3/config <<'EOF'
 # Mod 键：Windows/Super
 set $mod Mod4
@@ -145,6 +148,8 @@ EOF
 ## 配置`i3status`
 
 ```bash
+mkdir -p ~/.config/i3status
+
 cat > ~/.config/i3status/config <<'EOF'
 general {
     colors = true
@@ -297,6 +302,10 @@ foreground = "#d8dee9"
 style = "Block"
 ```
 
+## 配置Clash Mi
+
+去`github`下载`deb`安装
+
 ## 配置剪切板
 ```bash
 mkdir -p ~/.local/bin
@@ -308,6 +317,30 @@ wget -O ~/.local/bin/clipboard-rofi https://raw.githubusercontent.com/woaiyuzi/d
 
 chmod +x ~/.local/bin/clipboard-daemon
 chmod +x ~/.local/bin/clipboard-rofi
+```
+
+## 配置helix
+
+去`github`下载`deb`安装
+
+## 配置fish
+
+```bash
+chsh -s /usr/bin/fish
+
+mkdir -p ~/.config/fish
+
+cat > ~/.config/fish/config.fish <<'EOF
+# Editor
+set -gx EDITOR hx
+
+# PATH
+fish_add_path ~/.local/bin
+
+# Aliases
+alias ll "ls -lah"
+alias la "ls -A"
+EOF
 ```
 
 ## 快捷键列表
@@ -386,9 +419,9 @@ chmod +x ~/.local/bin/clipboard-rofi
 
 ## nvidia-legacy-390xx-driver
 ```bash
-sudo wget -O /usr/local/bin/bi-nvidia-legacy-390xx-driver https://raw.githubusercontent.com/woaiyuzi/debian13-i3/refs/heads/main/bi-nvidia-legacy-390xx-driver.sh
+wget -O ~/.local/bin/bi-nvidia-legacy-390xx-driver https://raw.githubusercontent.com/woaiyuzi/debian13-i3/refs/heads/main/bi-nvidia-legacy-390xx-driver
 
-chmod +x /usr/local/bin/bi-nvidia-legacy-390xx-driver
+chmod +x ~/.local/bin/bi-nvidia-legacy-390xx-driverbi-nvidia-legacy-390xx-driver
 
-bi-nvidia-legacy-390xx-driver
+bash ~/.local/bin/bi-nvidia-legacy-390xx-driver
 ```
