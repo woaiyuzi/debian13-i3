@@ -31,6 +31,11 @@ sudo apt install -y \
     fish
 ```
 
+## 修改默认终端
+```bash
+update-alternatives --config x-terminal-emulator
+```
+
 ## 配置输入法
 
 ```bash
@@ -295,8 +300,32 @@ dynamic_padding = true
 history = 10000
 
 [colors.primary]
-background = "#101418"
-foreground = "#d8dee9"
+background = "#1d1f21"
+foreground = "#c5c8c6"
+
+[colors.cursor]
+text = "#1d1f21"
+cursor = "#c5c8c6"
+
+[colors.normal]
+black = "#1d1f21"
+red = "#cc6666"
+green = "#b5bd68"
+yellow = "#f0c674"
+blue = "#81a2be"
+magenta = "#b294bb"
+cyan = "#8abeb7"
+white = "#c5c8c6"
+
+[colors.bright]
+black = "#969896"
+red = "#de935f"
+green = "#8c9440"
+yellow = "#f0c674"
+blue = "#81a2be"
+magenta = "#85678f"
+cyan = "#5e8d87"
+white = "#ffffff"
 
 [cursor]
 style = "Block"
